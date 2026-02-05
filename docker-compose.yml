@@ -1,0 +1,100 @@
+services:
+  postgres_db:
+    image: postgres:16-alpine
+    container_name: my_postgres
+    networks:
+      - home_network
+    restart: always
+    environment:
+      # Используем переменные из вашего .env файла
+      - POSTGRES_DB=${NAME_DB_WO}
+      - POSTGRES_USER=${USER_DB_WO}
+      - POSTGRES_PASSWORD=${PASS_DB_WO}
+    volumes:
+      # Безопасное хранение данных БД в управляемом Docker томе
+      - pgdata:/var/lib/postgresql/data
+
+    healthcheck:    
+      # Проверка готовности БД
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  telegram_bot:
+    build: .
+    container_name: my_telegram_bot
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    networks:
+      - home_network
+    volumes:
+      # Монтирование папки относительно текущей директории на хосте
+      - ./Folders_for_bot:/Budget_Bot/Folders_for_bot
+    restart: always
+    environment:
+      # Передача всех необходимых env-переменных боту
+      - BOT_TOKEN=${BOT_TOKEN}
+      - NAME_DB_WO=${NAME_DB_WO}
+      # Имя сервиса используется как HOST для бота
+      - HOST_DB_WO=${HOST_DB_WO} 
+      - USER_DB_WO=${USER_DB_WO}
+      - PASS_DB_WO=${PASS_DB_WO}
+      - USER_ID=${USER_ID}
+      - USER_ID2=${USER_ID2}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  pgadmin4:
+    image: dpage/pgadmin4:latest
+    container_name: my_pgadmin4
+    restart: always
+    networks:
+      - home_network
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${MY_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PASS_EMAIL}
+
+    ports:
+      - "127.0.0.1:8080:80"    
+    volumes:
+    # Монтируем файл конфигурации с хоста внутрь контейнера
+      
+      # Безопасное хранение конфигов pgAdmin в управляемом Docker томе
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres_db
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+# Объявление именованных томов Docker
+volumes:
+  pgdata:
+  pgadmin_data:
+networks:
+  home_network:
+    driver: bridge
+    internal: false 
