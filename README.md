@@ -32,7 +32,7 @@ export MY_EMAIL="YOUR ADMIN pgadmin"
 export PASS_EMAIL="YOUR PASSWORD ADMIN pgadmin"
 >$ source ~/.bashrc 
 	or reboot server
-
+```
 ## 2. Clone the repository:
 	`git clone https://github.com/ne6esisbka/Budget_bot.git
 ## 3. Install bot:
