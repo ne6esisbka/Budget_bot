@@ -1,21 +1,21 @@
 # 🤖 Budget Bot
 
-Бот для контроля личных финансов в Telegram. Позволяет удобно фиксировать движение средств и анализировать бюджет.
+A personal finance management bot for Telegram. It makes it easy to track and analyze your finances.
 
-## 🚀 Функционал
-* 📝 **Логирование транзакций** — быстрая запись расходов и доходов.
-* 📊 **Аналитика** — детальные отчеты за месяц и за год.
-* 🗂 **Категории** — гибкая классификация всех трат.
+## 🚀 Features
+* 📝 **Transaction Log** — quickly record expenses and income.
+* 📊 **Analytics** — detailed monthly and annual reports.
+* 🗂  **Categories** — flexible classification of all expenses.
 
-## 🛠 Стек технологий
-* **Docker** & **Docker Compose** — контейнеризация приложения.
-* **Python 3.10+** (библиотека `aiogram 2.25`).
-* **PostgreSQL** — надежное хранение данных.
-* **PgAdmin** — графический интерфейс для управления базой данных.
+## 🛠 Tech Stack
+* **Docker** & **Docker Compose** — application containerization.
+* **Python 3.10+** (`aiogram 2.25` library).
+* **PostgreSQL** — reliable data storage.
+* **PgAdmin** — graphical interface for database management.
 
 ---
 
-## 📦 Установка и запуск
+## 📦 Installation and Launch
 
 ## 1. Setting environment variables (Linux)
 Для работы бота необходимо прописать настройки в систему. Откройте файл `.bashrc`:
