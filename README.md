@@ -17,7 +17,7 @@
 
 ## 📦 Установка и запуск
 
-### 1. Setting environment variables (Linux)
+## 1. Setting environment variables (Linux)
 Для работы бота необходимо прописать настройки в систему. Откройте файл `.bashrc`:
 
 ```bash
@@ -33,11 +33,11 @@ export PASS_EMAIL="YOUR PASSWORD ADMIN pgadmin"
 >$ source ~/.bashrc 
 	or reboot server
 
-### 2. Clone the repository:
+## 2. Clone the repository:
 	`git clone https://github.com/ne6esisbka/Budget_bot.git
-### 3. Install bot:
+## 3. Install bot:
 	$ cd /$HOME/Mybot
 	$ sudo chmod +x ./install_bot.sh
 	$ sudo ./install_bot.sh
-### 4. Launching the bot:
+## 4. Launching the bot:
 	The bot starts automatically.
