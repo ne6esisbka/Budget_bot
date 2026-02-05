@@ -20,7 +20,7 @@ mkdir -p "$BACKUP_DIR_PSQL"
 echo "Starting backup of $NAME_DB_WO from container $CONTAINER_NAME..."
 
 # Выполняем дамп, сжимаем и сохраняем на хост
-docker exec -e PGPASSWORD="$PASS_DB_WO" -t $CONTAINER_NAME pg_dump -U $USER_DB_WO $NAME_DB_WO | gzip > "$BACKUP_DIR_PSQL/$FILE_NAME"
+docker exec -e PGPASSWORD="$PASS_DB_WO" $CONTAINER_NAME pg_dump -U $USER_DB_WO $NAME_DB_WO | gzip > "$BACKUP_DIR_PSQL/$FILE_NAME"
 
 # Проверка успешности создания бэкапа
 if [ $? -eq 0 ]; then

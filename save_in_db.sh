@@ -10,7 +10,7 @@ BACKUP_DIR_PSQL="/home/$USER/postgres_backup"   # Путь к папке на х
 echo "Saving to database begins from container $CONTAINER_NAME ..."
 
 # Выполняем дамп, сжимаем и сохраняем на хост
-docker exec -t my_telegram_bot python3 Budget_Bot/data_time_check.py
+docker exec $CONTAINER_NAME python3 Budget_Bot/data_time_check.py
 
 # Проверка успешности создания бэкапа
 if [ $? -eq 0 ]; then
