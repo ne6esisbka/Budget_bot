@@ -1,6 +1,8 @@
 #!/bin/bash
 
+
 # --- НАСТРОЙКИ (измените под себя) ---
+USER=$(whoami)
 CONTAINER_NAME="my_postgres"                    # Имя вашего Docker-контейнера
 BACKUP_DIR_PSQL="/home/$USER/postgres_backup"   # Путь к папке на хост-машине
 KEEP=3                                          # Количество хранимых копий

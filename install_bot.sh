@@ -1,12 +1,20 @@
 #!/bin/bash
 echo "The Docker container installation with the Budget bot for your family is starting."
 
+USER=$(whoami)
 FOLDER_FOR_PSQL="/home/$USER/postgres_backup"
 FOLDER_FOR_PGAD="/home/$USER/pgadmin_backup"
 FOLDER_FOR_LOG="/home/$USER/log_save_in_db"
 
-if  [ ! -d "$FOLDER_FOR_PSQL" ] && [ ! -d "$FOLDER_FOR_PGAD" ] && [! -d "$FOLDER_FOR_LOG"]; then
-    sudo mkdir -p $FOLDER_FOR_PSQL $FOLDER_FOR_PGAD
+if  [ ! -d "$FOLDER_FOR_PSQL" ] && [ ! -d "$FOLDER_FOR_PGAD" ] && [ ! -d "$FOLDER_FOR_LOG" ]; then
+    sudo mkdir -p $FOLDER_FOR_PSQL $FOLDER_FOR_PGAD $FOLDER_FOR_LOG
+    sudo chown -R $USER:$USER $FOLDER_FOR_PSQL
+    sudo chown -R $USER:$USER $FOLDER_FOR_PGAD
+    sudo chown -R $USER:$USER $FOLDER_FOR_LOG
+    chmod -R 755 $FOLDER_FOR_PSQL
+    chmod -R 755 $FOLDER_FOR_PGAD
+    chmod -R 755 $FOLDER_FOR_LOG
+    
     echo "Folders for PostgreSQL and PgAdmin created"
 
 else
@@ -23,10 +31,11 @@ SCRIPT_PATH_PSQL="/home/$USER/My_bot/backup_PSQL.sh"
 LOG_SAVE="${FOLDER_FOR_LOG}/save_in_db.log"
 LOG_PSQL="${SCRIPT_PATH_PSQL}/dump_db.log"
 
+
 sudo chmod +x $SCRIPT_PATH_SAVE
 sudo chmod +x $SCRIPT_PATH_PSQL
 
-if [ ! -f "$SCRIPT_PATH_SAVE" ] && [ ! -f "$SCRIPT_PATH_PSQL"]; then
+if [ ! -f "$SCRIPT_PATH_SAVE" ] && [ ! -f "$SCRIPT_PATH_PSQL" ]; then
     echo "Ошибка: Файлы $SCRIPT_PATH_SAVE * И * $SCRIPT_PATH_PSQL не найдены. Сначала создайте их."
     exit 1
 fi
