@@ -16,12 +16,11 @@ A personal finance management bot for Telegram. It makes it easy to track and an
 ---
 
 ## 📦 Installation and Launch
-
 ## 1. Setting environment variables (Linux)
-To use the bot, you need to enter the settings into the system. Open the file `.bashrc`:
+To use the bot, you need to enter the settings into the system. Open the file `.bot_env`:
 
 ```bash
->$ nano ~/.bashrc
+>$ nano /$HOME/.bot_env
 export BOT_TOKEN="YOUR TOKEN BOT"
 export USER_ID="NUMBER ADMIN USER"             # to gain access to the bot
 export NAME_DB_WO="NAME YOUR DATA BASE"
@@ -30,8 +29,6 @@ export USER_DB_WO="YOUR NAME ADMIN postgres"
 export PASS_DB_WO="YOUR PASSWORD ADMIN postgres"
 export MY_EMAIL="YOUR ADMIN pgadmin"
 export PASS_EMAIL="YOUR PASSWORD ADMIN pgadmin"
->$ source ~/.bashrc 
-	or reboot server
 ```
 ## 2. Clone the repository:
 ```
