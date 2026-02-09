@@ -3,6 +3,18 @@
 
 # --- НАСТРОЙКИ (измените под себя) ---
 USER=$(whoami)
+
+ENV_FILE="/home/$USER/.bot_env"
+
+# 2. Проверяем, существует ли файл, и загружаем его
+if [ -f "$ENV_FILE" ]; then
+    # export позволяет переменным быть видимыми во всех дочерних процессах
+    export $(grep -v '^#' "$ENV_FILE" | xargs)
+else
+    echo "Ошибка: Файл $ENV_FILE не найден!"
+    exit 1
+fi
+
 CONTAINER_NAME="my_postgres"                    # Имя вашего Docker-контейнера
 BACKUP_DIR_PSQL="/home/$USER/postgres_backup"   # Путь к папке на хост-машине
 KEEP=3                                          # Количество хранимых копий
