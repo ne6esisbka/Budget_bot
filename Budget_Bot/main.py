@@ -116,13 +116,6 @@ async def cmd_close(message: types.Message, state: FSMContext) -> None:
         await state.finish()
 
 
-# проверка на число введении суммы
-@dp.message_handler(lambda message: not re.search('\d', message.text),
-                    state=FillingStateGroup.number)
-async def check_number(message: types.Message):
-    await message.answer("❌ Вы ввели не правильную сумму")
-
-
 # введение суммы в категорию
 @dp.message_handler(state=FillingStateGroup.number)
 async def make_a_number(message: types.Message, state: FSMContext) -> None:
@@ -133,7 +126,7 @@ async def make_a_number(message: types.Message, state: FSMContext) -> None:
     
     async with state.proxy() as data:
         if not check_on_number(check_number_message, data['category']):
-            await message.answer(f"❌ Ваша сумма указана не верно!  = {check_number_message}")
+            await message.answer(f"❌ Ваша сумма указана не верно! = {check_number_message}")
             return
 
         data['number'] = message.text
@@ -142,19 +135,19 @@ async def make_a_number(message: types.Message, state: FSMContext) -> None:
         with open(f"{path_categories(data['category'])}", "a+",
                 encoding="UTF-8") as file:
             file.write(f"{message.text}\n")
-        await message.answer(f"✅ Ваша сумма записана!  = {data['number']}", reply_markup=get_main_menu())
+        await message.answer(f"✅ Ваша сумма записана! = {data['number']}", reply_markup=get_main_menu())
 
     elif data['category'] == "Money_box":
         with open(f"{create_dir_money()}", "a+", 
                 encoding="UTF-8") as file:
             file.write(f"+{data['number']}")
-        await message.answer(f"✅ Ваша сумма записана!  = {data['number']}", reply_markup=get_main_menu())
+        await message.answer(f"✅ Ваша сумма записана! = {data['number']}", reply_markup=get_main_menu())
 
     else:
         with open(f"{path_categories(data['category'])}","a+",
                 encoding="UTF-8") as file:
             file.write(f"+{data['number']}")
-        await message.answer(f"✅ Ваша сумма записана!  = {data['number']}", reply_markup=get_main_menu())
+        await message.answer(f"✅ Ваша сумма записана! = {data['number']}", reply_markup=get_main_menu())
     
     await message.delete()
 
