@@ -5,9 +5,10 @@ USER=$(whoami)
 FOLDER_FOR_PSQL="/home/$USER/postgres_backup"
 FOLDER_FOR_PGAD="/home/$USER/pgadmin_backup"
 FOLDER_FOR_LOG="/home/$USER/logs_save_in_db"
+FOLDER_FOR_BOT="/home/$USER/.bot_env"
 
 if  [ ! -d "$FOLDER_FOR_PSQL" ] && [ ! -d "$FOLDER_FOR_PGAD" ] && [ ! -d "$FOLDER_FOR_LOG" ]; then
-    sudo mkdir -p $FOLDER_FOR_PSQL $FOLDER_FOR_PGAD $FOLDER_FOR_LOG
+    sudo mkdir -p $FOLDER_FOR_PSQL $FOLDER_FOR_PGAD $FOLDER_FOR_LOG 
     sudo chown -R $USER:$USER $FOLDER_FOR_PSQL
     sudo chown -R $USER:$USER $FOLDER_FOR_PGAD
     sudo chown -R $USER:$USER $FOLDER_FOR_LOG
@@ -61,6 +62,8 @@ else
     echo "Задача успешно добавлена в crontab!"
     echo "Расписание: каждый день каждые 6 часов и в 03:00 каждое воскресенье сохранение БАЗЫ данных"
 fi
+
+echo "HOME_DB_WO=$HOME_DB_WO" > $FOLDER_FOR_BOT
 
 # Проверка статуса (опционально)
 if [ $? -eq 0 ]; then
