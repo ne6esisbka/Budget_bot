@@ -4,7 +4,7 @@ echo "The Docker container installation with the Budget bot for your family is s
 USER=$(whoami)
 FOLDER_FOR_PSQL="/home/$USER/postgres_backup"
 FOLDER_FOR_PGAD="/home/$USER/pgadmin_backup"
-FOLDER_FOR_LOG="/home/$USER/log_save_in_db"
+FOLDER_FOR_LOG="/home/$USER/logs_save_in_db"
 
 if  [ ! -d "$FOLDER_FOR_PSQL" ] && [ ! -d "$FOLDER_FOR_PGAD" ] && [ ! -d "$FOLDER_FOR_LOG" ]; then
     sudo mkdir -p $FOLDER_FOR_PSQL $FOLDER_FOR_PGAD $FOLDER_FOR_LOG
